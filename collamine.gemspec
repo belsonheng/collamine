@@ -6,11 +6,11 @@ require 'collamine/version'
 Gem::Specification.new do |spec|
   spec.name          = "collamine"
   spec.version       = Collamine::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.authors       = ["Belson Heng"]
+  spec.email         = ["belsonheng@gmail.com"]
+  spec.summary       = %q{Collamine lets you crawl a web site and share the results with the community via CollaMine servers.}
+  spec.description   = %q{Collamine is a ruby gem for CollaMine client, which communicates with CollaMine servers to download content from their SmartCache if it exists.}
+  spec.homepage      = "http://github.com/belsonheng/collamine/"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -18,6 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency 'nokogiri', '~> 1.6'
+  
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
 end
