@@ -1,5 +1,6 @@
 require 'cgi'
 require 'net/http/post/multipart'
+require 'domainatrix'
 
 # Makes the request to CollaMine servers
 class Request
@@ -25,7 +26,7 @@ class Request
   #
   def self.upload_to_collamine(url, content, filename, crawltime)
     post_request = Net::HTTP::Post::Multipart.new COLLAMINE_UPLOAD_URL,
-                                                  'domain'      => URI.parse(url).host,
+                                                  'domain'      => Domainatrix.parse(url).domain,
                                                   'url'         => url,
                                                   'crawltime'   => crawltime,
                                                   'contributor' => 'belson',
