@@ -1,20 +1,29 @@
-require "spidercrawl"
-require "collamine/request"
+require 'collamine/request'
+require 'spidercrawl'
 
 class Collamine
 
-  pages = Spiderman.shoot('http://forums.hardwarezone.com.sg/hwm-magazine-publication-38/') do |web|
-    web.before_spider_crawl do |url|
-  	  # Check collamine
-  	  Request.try_collamine(url)
+  def self.start(url, options)
+    from_collamine = []
+    pages = Spiderman.shoot(url, options) do |web|
+      collamine = nil
+      web.before_fetch do |url|
+        # Try to fetch from collamine server
+        puts "trying collamine: #{url}" 
+        puts "fetched from collamine: #{url}" if (collamine = Request.try_collamine(url))
+        from_collamine << url if collamine
+        collamine
+      end
+      web.after_fetch do |url, page|
+        # Upload to collamine if it cannot be found in server
+        unless collamine then 
+          puts "uploading to collamine: #{url}"
+          filename = url.to_s.split('/').last
+          filename += '.html' unless filename.include?('.html')
+          Request.upload_to_collamine(url, page.content, filename, page.crawled_time.to_i)
+        end
+      end
     end
-    web.after_spider_crawl do |url|
-  	  # Upload collamine
-    end
-  end
-
-  pages.each do |page| 
-	#puts "#{page.url}"
-	#puts "Words #{page.words}"
+    return pages, from_collamine
   end
 end
