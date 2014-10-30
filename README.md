@@ -1,6 +1,6 @@
 # Collamine
 
-[Collamine](https://github.com/belsonheng/collamine) is a ruby gem for CollaMine client, which communicates with CollaMine servers to download content from their SmartCache if it exists. It also lets you crawl a web site using [SpiderCrawl](https://github.com/belsonheng/spidercrawl) and share the results with the community via CollaMine servers.
+This is a ruby gem for CollaMine client, which communicates with CollaMine servers to download content from their SmartCache if it exists. It also lets you crawl a web site using [SpiderCrawl](https://github.com/belsonheng/spidercrawl) and share the results with the community via CollaMine servers.
 
 ## Installation
 
