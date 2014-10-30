@@ -14,13 +14,13 @@ class Collamine
         from_collamine << url if collamine
         collamine
       end
-      web.after_fetch do |url, page|
+      web.after_fetch do |page|
         # Upload to collamine if it cannot be found in server
         unless collamine then 
-          puts "uploading to collamine: #{url}"
-          filename = url.to_s.split('/').last
+          puts "uploading to collamine: #{page.url}"
+          filename = page.url.split('/').last
           filename += '.html' unless filename.include?('.html')
-          Request.upload_to_collamine(url, page.content, filename, page.crawled_time.to_i)
+          Request.upload_to_collamine(page.url, page.content, filename, page.crawled_time.to_i)
         end
       end
     end
