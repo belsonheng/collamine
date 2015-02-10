@@ -41,6 +41,7 @@ class Collamine
                    :crawled_date =>  page.crawled_time.to_i,
                    :response_time => page.response_time.to_i
             }
+            STORE.insert(doc)
           end
         end
       end
