@@ -4,8 +4,8 @@ require 'domainatrix'
 
 # Makes the request to CollaMine servers
 class Request
-  COLLAMINE_DOWNLOAD_URL = 'http://127.0.0.1:9001/download/html/'
-  COLLAMINE_UPLOAD_URL	 = 'http://127.0.0.1:9001/upload/html/multipart/'
+  COLLAMINE_DOWNLOAD_URL = 'http://172.31.22.135:9001/download/html/'
+  COLLAMINE_UPLOAD_URL   = 'http://172.31.22.135:9001/upload/html/multipart/'
   #
   # Try downloading the content from CollaMine servers
   #
