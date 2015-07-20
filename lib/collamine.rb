@@ -20,6 +20,13 @@ class Collamine
         from_collamine << url if collamine
         collamine
       end
+      web.on_redirect do |url|
+        # Try to fetch from collamine server
+        puts "trying collamine: #{url}" 
+        puts "fetched from collamine: #{url}" if (collamine = Request.try_collamine(url))
+        from_collamine << url if collamine
+        collamine
+      end
       web.after_fetch do |page|
         unless page.content == ''
           # Upload to collamine if it cannot be found in server
