@@ -49,6 +49,8 @@ class Collamine
                    :response_time => page.response_time.to_i
             }
             STORE.insert(doc)
+          else
+            puts "url exists"
           end
         end
       end
