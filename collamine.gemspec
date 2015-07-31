@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Collamine::VERSION
   spec.authors       = ["Belson Heng"]
   spec.email         = ["belsonheng@gmail.com"]
-  spec.summary       = %q{Collamine lets you crawl a web site and share the results with the community via CollaMine servers.}
+  spec.summary       = %q{Collamine lets you crawl a web site using SpiderCrawl library and share the results with the community via CollaMine servers.}
   spec.description   = %q{Collamine is a ruby gem for CollaMine client, which communicates with CollaMine servers to download content from their SmartCache if it exists.}
   spec.homepage      = "http://github.com/belsonheng/collamine/"
   spec.license       = "MIT"
