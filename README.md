@@ -26,6 +26,11 @@ To get started,
     Collamine.start('http://forums.hardwarezone.com.sg/hwm-magazine-publication-38/', 
                     :pattern => Regexp.new('^http:\/\/forums\.hardwarezone\.com\.sg\/hwm-magazine-publication-38\/?(.*\.html)?$'))
 
+## TODO
+
+1. Update CollaMine server path
+2. Update MongoDB server path/ Remove MongoDB module
+
 ## Contributing
 
 1. Fork it ( https://github.com/belsonheng/collamine/fork )
