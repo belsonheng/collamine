@@ -26,10 +26,15 @@ To get started,
     Collamine.start('http://forums.hardwarezone.com.sg/hwm-magazine-publication-38/', 
                     :pattern => Regexp.new('^http:\/\/forums\.hardwarezone\.com\.sg\/hwm-magazine-publication-38\/?(.*\.html)?$'))
 
-## TODO
+To do something before and after each fetch, you have to place the following before you call Collamine.start
 
-1. Update CollaMine server path
-2. Update MongoDB server path/ Remove MongoDB module
+    Collamine.before_fetch do |url|
+        puts "Do what you want to the url: #{url}"
+    end
+    
+    Collamine.after_fetch do |page, from_collamine|
+        # Do what you want to the page and the pages fetched from collamine
+    end
 
 ## Contributing
 
