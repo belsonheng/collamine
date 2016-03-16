@@ -24,6 +24,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "spidercrawl"
   spec.add_dependency "multipart-post"
   spec.add_dependency "domainatrix"
-  spec.add_dependency "mongo"
-  spec.add_dependency "bson_ext"
 end
