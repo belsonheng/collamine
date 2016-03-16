@@ -4,13 +4,15 @@ require 'domainatrix'
 
 # Makes the request to CollaMine servers
 class Request
-  COLLAMINE_DOWNLOAD_URL = 'http://172.31.22.135:9001/download/html/'
-  COLLAMINE_UPLOAD_URL   = 'http://172.31.22.135:9001/upload/html/multipart/'
+  def self.setup_collamine(options)
+    @collamine_download_url = options[:download]
+    @collamine_upload_url = options[:upload]
+  end
   #
   # Try downloading the content from CollaMine servers
   #
   def self.try_collamine(url)
-    uri = URI.parse(COLLAMINE_DOWNLOAD_URL+CGI::escape(url.to_s))
+    uri = URI.parse(@collamine_download_url+CGI::escape(url.to_s))
     Net::HTTP.start(uri.host, uri.port) do |http|
       response = http.get(uri)
       case response
@@ -25,13 +27,13 @@ class Request
   # Upload the content to Collamine servers
   #
   def self.upload_to_collamine(url, content, filename, crawltime)
-    post_request = Net::HTTP::Post::Multipart.new COLLAMINE_UPLOAD_URL,
+    post_request = Net::HTTP::Post::Multipart.new @collamine_upload_url,
                                                   'domain'      => Domainatrix.parse(url).domain,
                                                   'url'         => url,
                                                   'crawltime'   => crawltime,
                                                   'contributor' => 'belson',
                                                   'document'    => UploadIO.new(StringIO.new(content.encode('UTF-8', 'ISO-8859-15')), 'text/html', filename)                                 
-    response = Net::HTTP.start(URI.parse(COLLAMINE_UPLOAD_URL).host, URI.parse(COLLAMINE_UPLOAD_URL).port) { |http| http.request(post_request) }
+    response = Net::HTTP.start(URI.parse(@collamine_upload_url).host, URI.parse(@collamine_upload_url).port) { |http| http.request(post_request) }
     puts response.body
   end
 end
