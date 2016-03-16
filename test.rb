@@ -1,6 +1,7 @@
 require 'collamine'
 require 'mongo'
 require 'domainatrix'
+
 #http://forums.hardwarezone.com.sg/hwm-magazine-publication-38/
 #http://forums.hardwarezone.com.sg/money-mind-210/
 #http://sgforums.com/forums/4
@@ -41,10 +42,10 @@ Collamine.after_fetch do |page, from_collamine|
 end
 
 pages, from_collamine = Collamine.start('http://forums.hardwarezone.com.sg/money-mind-210/',
-	                                   :pattern => Regexp.new('^http:\/\/forums\.hardwarezone\.com\.sg\/money-mind-210\/?(.*\.html)?$'),
-	                                   :download => 'http://172.20.131.150:9001/download/html/',
-	                                   :upload => 'http://172.20.131.150:9001/upload/html/multipart/',
-                                       :parallel => true, :threads => 10)
+	                                :pattern => Regexp.new('^http:\/\/forums\.hardwarezone\.com\.sg\/money-mind-210\/?(.*\.html)?$'),
+	                                :download => 'http://172.20.131.150:9001/download/html/',
+	                                :upload => 'http://172.20.131.150:9001/upload/html/multipart/',
+                                        :parallel => true, :threads => 10)
 
 puts "Total pages crawled: #{pages.size}"
 
