@@ -2,6 +2,8 @@ require 'collamine'
 require 'mongo'
 require 'domainatrix'
 
+Mongo::Logger.logger.level = ::Logger::FATAL
+
 #http://forums.hardwarezone.com.sg/hwm-magazine-publication-38/
 #http://forums.hardwarezone.com.sg/money-mind-210/
 #http://sgforums.com/forums/4
@@ -15,8 +17,8 @@ require 'domainatrix'
 #https://www.apple.com/sg/
 #http://forums.hardwarezone.com.sg/current-affairs-lounge-17/
 
-include Mongo
-STORE = MongoClient.new("localhost", 27017).db("smartcache").collection("html")
+client = Mongo::Client.new([ 'localhost:27017' ], :database => 'smartcache', :connect => :direct)
+documents = client[:html]
 
 Collamine.before_fetch do |url|
   puts "Do what you want to the url: #{url}"
@@ -24,7 +26,7 @@ end
 
 Collamine.after_fetch do |page, from_collamine|
   # Check if duplicate
-  unless STORE.find("url" => page.url).to_a.size > 0
+  unless documents.find("url" => page.url).to_a.size > 0
     # Insert into Mongodb
     puts "Insert to db: #{page.url}"
     source = (from_collamine.include?(page.url) ? 'collamine' : 'original')
@@ -35,7 +37,7 @@ Collamine.after_fetch do |page, from_collamine|
            :crawled_date =>  page.crawled_time.to_i,
            :response_time => page.response_time.to_i
     }
-    STORE.insert(doc)
+    documents.insert_one(doc)
   else
     puts "url exists"
   end
